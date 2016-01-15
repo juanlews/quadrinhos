@@ -14,24 +14,40 @@ package
 	 */
 	public class Main extends Sprite 
 	{
+		private var _botoes:Botoes;
 		
 		public function Main() 
 		{
+			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
 			stage.addEventListener(Event.DEACTIVATE, deactivate);
-			
-			// touch or gesture?
 			Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
 			
-			// Entry point
-			// New to AIR? Please read *carefully* the readme.txt files!
+			_botoes = new Botoes();
+			_botoes.addEventListener("começar", comecaQuadro);
+			_botoes.addEventListener("terminar", terminaquadro);
+			_botoes.addEventListener("exportar", exportarXML);
+			addChild(_botoes);
+			_botoes.reposicione();
+				
+		}
+		
+		private function comecaQuadro(evento:Event):void {
+			trace ('começando a desenhar o quadro');
+		}
+		private function terminaquadro(evento:Event):void{
+			
+			trace('termina quadro');
+		}
+		private function exportarXML(evento:Event):void{
+			trace('exportando xml');
+			
 		}
 		
 		private function deactivate(e:Event):void 
 		{
-			// make sure the app behaves well (or exits) when in background
-			//NativeApplication.nativeApplication.exit();
+			
 		}
 		
 	}
