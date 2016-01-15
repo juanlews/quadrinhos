@@ -16,8 +16,10 @@ package
 	 */
 	public class Pagina extends Sprite
 	{
+		
 		private var p:Shape;
-		private var ponto:Vector.<Point>
+		private var ponto:Vector.<Point>;
+		private var quadro:Vector.<Quadro>;
 		public var caminho:String;
 		private var _loader:Loader;
 		
@@ -26,7 +28,7 @@ package
 			super();
 			p = new Shape();
 			ponto = new Vector.<Point>();
-			
+			quadro = new Vector.<Quadro>();
 			_loader = new Loader();
 		
 		}
@@ -53,22 +55,44 @@ package
 		
 		private function marcador(evento:MouseEvent):void
 		{
-			p.graphics.lineStyle(3, 0xFF9900);
 			
-			if (ponto.length == 0) {
+			p.graphics.lineStyle(3, 0xFF9900);
+			if (ponto.length <= 4)
+			{
+				if (ponto.length == 0)
+				{
+					
+					p.graphics.moveTo(evento.localX, evento.localY);
+					
+				}
+				else
+				{
+					p.graphics.lineTo(evento.localX, evento.localY);
+					
+				}
 				
-				p.graphics.moveTo(evento.localX, evento.localY);
-				
+				ponto.push(new Point(evento.localX, evento.localY));
 			}
 			else
 			{
-				p.graphics.lineTo(evento.localX, evento.localY);
-				
+				p.graphics.beginFill(0x00FF00);
+				trace("quadro fechado");
+				p.graphics.endFill();
+				limpaPontos();
 			}
-			ponto.push(new Point(evento.localX, evento.localY));
-			
-			
 		
+		}
+		
+		private function limpaPontos():void
+		{
+			
+			quadro.push(new Quadro());
+			removeChild(p);
+			while (ponto.length > 0)
+			{
+				
+				quadro[quadro.length - 1].getPonto(ponto.shift());
+			}
 		}
 		
 		private function ajuste():void
