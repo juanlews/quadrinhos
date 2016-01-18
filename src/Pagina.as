@@ -89,7 +89,7 @@ package
 		{
 			_loader.removeEventListener(MouseEvent.CLICK, marcador);
 			trace("terminou mesmo");
-			quadro.push(new Quadro());			
+			quadro.push(new Quadro());
 			while (ponto.length > 0)
 			{
 				
@@ -114,14 +114,27 @@ package
 				y = (this.areaUtil - height) / 2;
 			}
 		}
-	
-		public function criarXML():void{
-			if (quadro.length == 0){
+		
+		public function criarXML():void
+		{
+			if (quadro.length == 0)
+			{
+				
 				trace("não há quadros");
 			}
-			
+			else
+			{
+				while( quadro.length >= 0 )
+				{
+					
+					trace("há quadros");
+					
+					
+					trace(quadro.shift().exportaXML());
+				}
+			}
+		
 		}
-	}
 	
-
+	}
 }
