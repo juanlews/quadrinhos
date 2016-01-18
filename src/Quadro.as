@@ -26,16 +26,16 @@ package
 		}
 		
 		// uma função pra exportar o xml desse quadro
-		public function exportaXML(cont:int):String
+		public function exportaXML():String
 		{
 			
 			
-			var retorno:String = '<quadro' + cont + '>';
+			var retorno:String = '<quadro>';
 			for (var i:int = 0; i < pontos.length; i++)
 			{
 				retorno += '<ponto>' + pontos[i].x + ',' + pontos[i].y + '</ponto>';
 			}
-			retorno += '</quadro>' + cont + '>';
+			retorno += '</quadro>';
 			
 			return (retorno);
 		}

@@ -18,7 +18,7 @@ package
 	public class Pagina extends Sprite
 		{  
 		public var xmlcompleto:String;
- 		public var contquadros:int;		
+ 			
 		private var p:Shape;
 		private var ponto:Vector.<Point>;
 		private var quadro:Vector.<Quadro>;
@@ -30,9 +30,9 @@ package
 		{
 			
 			super();
-			contquadros = 0;
+			
 			p = new Shape();
-			xmlcompleto = "";
+			xmlcompleto = '<?xml version="1.0" encoding="utf-8"?> <pagina>';
 			ponto = new Vector.<Point>();
 			quadro = new Vector.<Quadro>();
 			_loader = new Loader();
@@ -91,7 +91,7 @@ package
 		}
 		
 		public function termina():void
-		{    contquadros += 1;
+		{    
 			_loader.removeEventListener(MouseEvent.CLICK, marcador);
 			trace("terminou mesmo");
 			quadro.push(new Quadro());
@@ -135,7 +135,7 @@ package
 					trace("há quadros");
 					
 					
-					xmlcompleto += quadro.shift().exportaXML(contquadros);
+					xmlcompleto += quadro.shift().exportaXML();
 				}
 			}
 		
