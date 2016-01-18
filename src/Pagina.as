@@ -53,8 +53,7 @@ package
 		
 		}
 		
-		private function marcador(evento:MouseEvent):void
-		{
+		private function marcador(evento:MouseEvent):void {
 			
 			p.graphics.lineStyle(3, 0xFF9900);
 			
@@ -124,7 +123,7 @@ package
 			}
 			else
 			{
-				while( quadro.length >= 0 )
+				while( quadro.length > 0 )
 				{
 					
 					trace("há quadros");
