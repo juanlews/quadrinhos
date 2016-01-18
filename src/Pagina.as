@@ -137,6 +137,8 @@ package
 					
 					xmlcompleto += quadro.shift().exportaXML();
 				}
+			
+				xmlcompleto += "</pagina>";
 			}
 		
 		}
