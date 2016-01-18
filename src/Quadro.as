@@ -21,6 +21,16 @@ package
 			pontos.push(p);
 		
 		}
+		
+		// uma função pra exportar o xml desse quadro
+		public function exportaXML():String {
+			var retorno:String = '<quadro>';
+			for (var i:int = 0; i < pontos.length; i++) {
+				retorno += '<ponto>' + pontos[i].x + ',' + pontos[i].y + '</ponto>';
+			}
+			retorno += '</quadro>';
+			return (retorno);
+		}
 	}
 
 }
