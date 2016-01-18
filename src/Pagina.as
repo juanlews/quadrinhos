@@ -22,6 +22,7 @@ package
 		private var quadro:Vector.<Quadro>;
 		public var caminho:String;
 		private var _loader:Loader;
+		public var areaUtil:Number;
 		
 		public function Pagina()
 		{
@@ -45,7 +46,6 @@ package
 		{
 			_loader.contentLoaderInfo.removeEventListener(Event.INIT, imagemCarregada);
 			//_loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, erroImagem);
-			_loader.addEventListener(MouseEvent.CLICK, marcador);
 			
 			addChild(_loader);
 			addChild(p);
@@ -57,37 +57,39 @@ package
 		{
 			
 			p.graphics.lineStyle(3, 0xFF9900);
-			if (ponto.length <= 4)
+			
+			if (ponto.length == 0)
 			{
-				if (ponto.length == 0)
-				{
-					
-					p.graphics.moveTo(evento.localX, evento.localY);
-					
-				}
-				else
-				{
-					p.graphics.lineTo(evento.localX, evento.localY);
-					
-				}
 				
-				ponto.push(new Point(evento.localX, evento.localY));
+				p.graphics.moveTo(evento.localX, evento.localY);
+				
 			}
 			else
 			{
-				p.graphics.beginFill(0x00FF00);
-				trace("quadro fechado");
-				p.graphics.endFill();
-				limpaPontos();
+				p.graphics.lineTo(evento.localX, evento.localY);
+				
 			}
+			
+			ponto.push(new Point(evento.localX, evento.localY));
 		
 		}
 		
-		private function limpaPontos():void
+		public function comeca():void
 		{
-			
-			quadro.push(new Quadro());
-			removeChild(p);
+			trace("comecou mesmo");
+			_loader.addEventListener(MouseEvent.CLICK, marcador);
+			while (ponto.length > 0)
+			{
+				
+				ponto.shift();
+			}
+		}
+		
+		public function termina():void
+		{
+			_loader.removeEventListener(MouseEvent.CLICK, marcador);
+			trace("terminou mesmo");
+			quadro.push(new Quadro());			
 			while (ponto.length > 0)
 			{
 				
@@ -95,7 +97,7 @@ package
 			}
 		}
 		
-		private function ajuste():void
+		public function ajuste():void
 		{
 			
 			if (stage != null)
@@ -103,16 +105,23 @@ package
 				
 				this.width = stage.stageWidth;
 				this.scaleY = this.scaleX;
-				if (height > stage.stageHeight)
+				if (height > this.areaUtil)
 				{
-					height = stage.stageHeight;
+					height = this.areaUtil;
 					this.scaleX = this.scaleY;
 				}
 				x = (stage.stageWidth - width) / 2;
-				y = (stage.stageHeight - height) / 2;
+				y = (this.areaUtil - height) / 2;
 			}
 		}
 	
+		public function criarXML():void{
+			if (quadro.length == 0){
+				trace("não há quadros");
+			}
+			
+		}
 	}
+	
 
 }
