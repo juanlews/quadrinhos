@@ -10,13 +10,14 @@ package
 	import flash.ui.Mouse;
 	import flash.geom.Point;
 	
+	
 	/**
 	 * ...
 	 * @author
 	 */
 	public class Pagina extends Sprite
 	{
-		
+		public var contquadros:int;		
 		private var p:Shape;
 		private var ponto:Vector.<Point>;
 		private var quadro:Vector.<Quadro>;
@@ -26,7 +27,9 @@ package
 		
 		public function Pagina()
 		{
+			
 			super();
+			contquadros = 0;
 			p = new Shape();
 			ponto = new Vector.<Point>();
 			quadro = new Vector.<Quadro>();
@@ -85,7 +88,7 @@ package
 		}
 		
 		public function termina():void
-		{
+		{    contquadros += 1;
 			_loader.removeEventListener(MouseEvent.CLICK, marcador);
 			trace("terminou mesmo");
 			quadro.push(new Quadro());
@@ -121,15 +124,15 @@ package
 				
 				trace("não há quadros");
 			}
-			else
-			{
+			else {
+				
 				while( quadro.length > 0 )
 				{
 					
 					trace("há quadros");
 					
 					
-					trace(quadro.shift().exportaXML());
+					trace(quadro.shift().exportaXML(contquadros));
 				}
 			}
 		
