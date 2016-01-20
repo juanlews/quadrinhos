@@ -10,15 +10,13 @@ package
 	import flash.ui.Mouse;
 	import flash.geom.Point;
 	
-	
 	/**
 	 * ...
 	 * @author
 	 */
 	public class Pagina extends Sprite
-		{  
-		public var xmlcompleto:String;
- 			
+	{
+		
 		private var p:Shape;
 		private var ponto:Vector.<Point>;
 		private var quadro:Vector.<Quadro>;
@@ -32,7 +30,6 @@ package
 			super();
 			
 			p = new Shape();
-			xmlcompleto = '<?xml version="1.0" encoding="utf-8"?> <pagina>';
 			ponto = new Vector.<Point>();
 			quadro = new Vector.<Quadro>();
 			_loader = new Loader();
@@ -58,7 +55,8 @@ package
 		
 		}
 		
-		private function marcador(evento:MouseEvent):void {
+		private function marcador(evento:MouseEvent):void
+		{
 			
 			p.graphics.lineStyle(3, 0xFF9900);
 			
@@ -79,9 +77,9 @@ package
 		}
 		
 		public function comeca():void
-		{   
+		{
 			trace("comecou mesmo");
-			trace(xmlcompleto);
+			
 			_loader.addEventListener(MouseEvent.CLICK, marcador);
 			while (ponto.length > 0)
 			{
@@ -91,7 +89,7 @@ package
 		}
 		
 		public function termina():void
-		{    
+		{
 			_loader.removeEventListener(MouseEvent.CLICK, marcador);
 			trace("terminou mesmo");
 			quadro.push(new Quadro());
@@ -120,27 +118,32 @@ package
 			}
 		}
 		
-		public function criarXML():void
+		public function criarXML():String
 		{
+			var xmlcompleto:String;
+			xmlcompleto = '<?xml version="1.0" encoding="utf-8"?> <pagina>';
+			
 			if (quadro.length == 0)
 			{
 				
 				trace("não há quadros");
 			}
-			else {
+			else
+			{
 				
-				while( quadro.length > 0 )
+				while (quadro.length > 0)
 				{
 					
 					trace("há quadros");
 					
-					
 					xmlcompleto += quadro.shift().exportaXML();
 				}
-			
+				
 				xmlcompleto += "</pagina>";
+				
 			}
-		
+			trace(xmlcompleto);
+			return (xmlcompleto);
 		}
 	
 	}
