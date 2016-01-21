@@ -3,9 +3,11 @@ package
 	import flash.display.Loader;
 	import flash.display.Shape;
 	import flash.display.Sprite;
+	import flash.errors.IOError;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.MouseEvent;
+	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.ui.Mouse;
 	import flash.geom.Point;
@@ -23,6 +25,9 @@ package
 		public var caminho:String;
 		private var _loader:Loader;
 		public var areaUtil:Number;
+		private var _imagens:Array;
+		private var _server:String;
+		private var indice:int = 0;
 		
 		public function Pagina()
 		{
@@ -33,26 +38,48 @@ package
 			ponto = new Vector.<Point>();
 			quadro = new Vector.<Quadro>();
 			_loader = new Loader();
-		
-		}
-		
-		public function load():void
-		{
-			_loader.contentLoaderInfo.addEventListener(Event.INIT, imagemCarregada);
-			//_loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, erroImagem);
 			
-			_loader.load(new URLRequest('87.jpg'));
+		
 		}
 		
-		private function imagemCarregada(evento:Event):void
+		public function load(server:String, img:Array):void
 		{
-			_loader.contentLoaderInfo.removeEventListener(Event.INIT, imagemCarregada);
+			this._imagens = img;
+			this._server = server;
+			
+			trace("dentro da função" + img + img.length);
+			
+			this._loader.load((new URLRequest(server + img[0] as String)));
+			this._loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, falha);
+			this._loader.contentLoaderInfo.addEventListener(Event.INIT, imagemCarregada);
+			
+		}
+		public function nomedaAtual():String{
+			return(this._imagens[this.indice]);
+		}
+		
+		private function falha(evento:IOErrorEvent):void{
+			trace('imagem não pode ser carregada');
+		}
+		public function imagemCarregada(evento:Event):void
+		{
+			//_loader.contentLoaderInfo.removeEventListener(Event.INIT, imagemCarregada);
 			//_loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, erroImagem);
 			
 			addChild(_loader);
 			addChild(p);
 			this.ajuste();
+			dispatchEvent(new Event("carregou"));
 		
+		}
+		
+		public function proxima():void {
+			indice++;
+			if (indice < _imagens.length) {
+				this._loader.load((new URLRequest(_server + _imagens[indice] as String)));
+			} else {
+				trace ('TODAS AS IMAGENS JA FORAM CARREGADAS');
+			}
 		}
 		
 		private function marcador(evento:MouseEvent):void
@@ -98,6 +125,7 @@ package
 				
 				quadro[quadro.length - 1].getPonto(ponto.shift());
 			}
+			
 		}
 		
 		public function ajuste():void
@@ -143,6 +171,7 @@ package
 				
 			}
 			trace(xmlcompleto);
+			p.graphics.clear();
 			return (xmlcompleto);
 		}
 	

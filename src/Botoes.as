@@ -74,19 +74,19 @@ package
 			botao.width = stage.stageWidth / 3;
 			botao.scaleY = botao.scaleX;
 			botao.x = 0; 
-			botao.y = stage.stageHeight - botao.height;
+			botao.y = 0;
 			
 			
 			botao2.width = stage.stageWidth / 3;
 			botao2.scaleY = botao2.scaleX;
 			botao2.x = botao.x + botao.width;
-			botao2.y=stage.stageHeight -botao2.height;
+			botao2.y=0;
 			
 			
 			botao3.width = stage.stageWidth / 3;
 			botao3.scaleY = botao3.scaleX;
 			botao3.x = botao2.x + botao2.width;
-			botao3.y = stage.stageHeight - botao3.height;
+			botao3.y = 0;
 			
 			
 		}
